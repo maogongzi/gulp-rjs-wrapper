@@ -1,0 +1,27 @@
+{
+  "name": "gulp-rjs-wrapper",
+  "version": "1.0.0",
+  "description": "Seamlessly integrate r.js with gulp.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maverickpuss/gulp-rjs-wrapper.git"
+  },
+  "author": {
+    "name": "Dylan Mao",
+    "email": "maverickpuss@gmail.com"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "r.js",
+    "requirejs",
+    "optimize"
+  ],
+  "dependencies": {
+    "gulp-util": "^3.0.0",
+    "through2": "^2.0.0",
+    "requirejs": "^2.2.0"
+  }
+}
