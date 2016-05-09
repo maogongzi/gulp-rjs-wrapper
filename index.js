@@ -47,7 +47,7 @@ function rjsWrapper (options) {
       var optFile = new gutil.File({
         cwd: "",
         base: "",
-        path: file.path.replace(options.baseUrl, ''),
+        path: file.path,
         contents: new Buffer(resultText)
       });
 
