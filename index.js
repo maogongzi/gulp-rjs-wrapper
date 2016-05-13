@@ -16,12 +16,12 @@ function rjsWrapper (options) {
         resultText = null;
 
     if (file.isNull()) {
-      this.emit('error', new gutil.PluginError('empty file not supported!'));
+      this.emit('error', new Error('empty file not supported!'));
       return cb();
     }
 
     if (file.isStream()) {
-      this.emit('error', new gutil.PluginError('streaming not supported!'));
+      this.emit('error', new Error('streaming not supported!'));
       return cb();
     }
 
@@ -55,7 +55,7 @@ function rjsWrapper (options) {
 
       cb();
     }, function(err){
-      _this.emit('error', new gutil.PluginError(err));
+      _this.emit('error', new Error(err));
 
       cb();
     });
