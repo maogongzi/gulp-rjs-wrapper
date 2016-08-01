@@ -3,11 +3,17 @@ var rjs = require('requirejs'),
     gutil = require('gulp-util');
 
 function rjsWrapper (options) {
-  var _nameFn = null;
+  var _nameFn = null,
+      _excludeFn = null;
 
   // a function was given to resolve the module name, cache it
   if (typeof options.name === 'function') {
     _nameFn = options.name;
+  }
+
+  // a function was given to resolve the excluded modules, cache it
+  if (typeof options.exclude === 'function') {
+    _excludeFn = options.exclude;
   }
 
   // creating a stream through which each file will pass
@@ -29,6 +35,10 @@ function rjsWrapper (options) {
     // it accepts the current file in the stream queue as it's argument.
     if (_nameFn) {
       options.name = _nameFn(file);
+    }
+
+    if (_excludeFn) {
+      options.exclude = _excludeFn(file);
     }
 
     // now we catch the output text, later we'll use it to form a new vinyl
