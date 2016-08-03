@@ -18,8 +18,7 @@ function rjsWrapper (options) {
 
   // creating a stream through which each file will pass
   return through.obj(function(file, enc, cb) {
-    var _this = this,
-        resultText = null;
+    var _this = this;
 
     if (file.isNull()) {
       this.emit('error', new Error('empty file not supported!'));
@@ -44,7 +43,7 @@ function rjsWrapper (options) {
     // now we catch the output text, later we'll use it to form a new vinyl
     // file and push it into the stream.
     options.out = function (text) {
-      resultText = text;
+      file.contents = new Buffer(text);
     };
 
     // TODO no ideas what's happening here :(, the first file in the queue
@@ -52,16 +51,8 @@ function rjsWrapper (options) {
     options.baseUrl = options.baseUrl.substr(-1) === '/' ? options.baseUrl :
       options.baseUrl + "/";
 
-    rjs.optimize(options, function(optimizedFileList){
-      /* finished successfully */
-      var optFile = new gutil.File({
-        cwd: "",
-        base: "",
-        path: file.path,
-        contents: new Buffer(resultText)
-      });
-
-      _this.push(optFile);
+    rjs.optimize(options, function(){
+      _this.push(file);
 
       cb();
     }, function(err){
